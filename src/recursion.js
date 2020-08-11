@@ -127,6 +127,34 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+    if (x >= 0 && y > 0) {
+        if (x < y) {
+            return x
+        }
+        x -= y
+        return modulo(x, y)
+    }
+    if (x >= 0 && y < 0) {
+        if (x < -y) {
+            return x
+        }
+        x += y
+        return modulo(x,y)
+    }
+    if (x < 0 && y > 0) {
+        if (x > -y) {
+            return x
+        }
+        x += y
+        return modulo(x, y)
+    }
+    if (x < 0 && y < 0) {
+        if (x > y) {
+            return x
+        }
+        x -= y
+        return modulo(x, y)
+    }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -152,6 +180,15 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+    if (str1.length === str2.length && str1.length === 0) {
+        return true
+    }
+    if (str1[0] === str2[0]){
+        str1 = str1.slice(1)
+        str2 = str2.slice(1)
+        return compareStr(str1, str2)
+    }
+    return false
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
@@ -175,6 +212,22 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+    if (n === 0) {
+        return [];
+    }
+    var output = ''
+    if (n % 3 === 0) {
+        output += 'Fizz'
+
+    }
+    if (n % 5 === 0) {
+        output += 'Buzz'
+    }
+    if (output === '') {
+        output = '' + n + ''
+    }
+    return fizzBuzz(n-1).concat([output])
+
 };
 
 // 20. Count the occurence of a value in a list.
@@ -186,6 +239,15 @@ var countOccurrence = function(array, value) {
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+    if (array.length === 0) {
+        return []
+    }
+
+    var copyOfArray = array.slice(0)
+    var mappedNumber = [callback(copyOfArray[0])]
+
+    var nextArray = copyOfArray.slice(1)
+    return mappedNumber.concat(rMap(nextArray, callback))
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -213,6 +275,14 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+    if (n <= 0) {
+        return null
+    }
+    if (n === 1) {
+        return [0, 1]
+    }
+    return fibonacci(n-1).concat(fibonacci(n-1)[n-2] + fibonacci(n-1)[n-1])
+
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -221,6 +291,7 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
